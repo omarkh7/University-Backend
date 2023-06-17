@@ -1,14 +1,25 @@
+const EventImages = require("../Model/eventimagesModel");
 const Events = require("../Model/eventsModel");
 const University = require("../Model/universityModel");
-
-
 
 // ========================GET ALL========================
 const getAllEvents = async (req, res) => {
   try {
-    const event = await Events.find().populate("event_owner");
+    const events = await Events.find().populate("event_owner");
 
-    res.send(event);
+    const mappedresult = [];
+    const transformedArray = events.map((item) => {
+      const images = EventImages.find({ event_id: item._id });
+
+      const mappedItem = {
+        name: item.name,
+        description: item.description,
+        images: images,
+      };
+      mappedresult.push(mappedItem);
+    });
+
+    res.send(mappedresult);
   } catch (error) {
     console.log(error);
     res.send(error);
@@ -32,17 +43,12 @@ const getEventbyId = async (req, res) => {
 
 const createEvent = async (req, res) => {
   try {
-    const {
-      name,
-      description,
-      event_owner
-    } = req.body;
-
+    const { name, description, event_owner } = req.body;
 
     const event = await Events.create({
-        name,
-        description,
-        event_owner
+      name,
+      description,
+      event_owner,
     });
 
     res.status(201).json(event);
@@ -57,11 +63,7 @@ const createEvent = async (req, res) => {
 // ========================UPDATE========================
 const updateEvent = async (req, res) => {
   try {
-    const {
-        name,
-        description,
-        event_owner
-    } = req.body;
+    const { name, description, event_owner } = req.body;
     const eventId = req.params.id;
 
     const updates = {};
@@ -75,7 +77,6 @@ const updateEvent = async (req, res) => {
     if (event_owner) {
       updates.event_owner = event_owner;
     }
-    
 
     const updateEvent = await Events.findByIdAndUpdate(eventId, updates, {
       new: true,

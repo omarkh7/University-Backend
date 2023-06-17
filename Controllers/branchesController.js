@@ -2,8 +2,13 @@ const Branches = require("../Model/branchesModel");
 
 // ========================GET ALL========================
 const getAllBranches = async (req, res) => {
+  const cityid = req.params.cityid;
+  let query = {};
+  if( req.params.cityid){
+    query.city_id=req.params.cityid;
+  }
   try {
-    const branches = await Branches.find();
+    const branches = await Branches.find(query).populate("university_id").populate("city_id");
 
     res.send(branches);
   } catch (error) {

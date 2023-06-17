@@ -24,7 +24,7 @@ const universitySchema = new Schema({
     type: Number,
     required: [true, "Please add a Classification"],
   },
-  webiste: {
+  website: {
     type: String,
   },
   facebook: {

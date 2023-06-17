@@ -48,6 +48,8 @@ const createUni = async (req, res) => {
       linkedin,
       instagram,
     } = req.body;
+
+    console.log(name,description,advantages_features, classification, website, facebook, linkedin, instagram)
     const logo = await uploadsingle(req.file);
     const logoURL = logo.downloadURL;
 
