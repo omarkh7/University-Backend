@@ -9,10 +9,14 @@ const {
   updateCity,
 } = require("../Controllers/citiesController");
 
-router.get("/getallcities", getAllCities);
-router.get("/getcitybyid/:id", getCitybyId);
-router.post("/createcity", createCity);
-router.put("/updatecity/:id", updateCity);
-router.delete("/deletecity/:id", deleteCitybyId);
+
+const protect = require("../Middleware/authMiddleware");
+
+
+router.get("/getallcities",protect, getAllCities);
+router.get("/getcitybyid/:id", protect,getCitybyId);
+router.post("/createcity",protect, createCity);
+router.put("/updatecity/:id",protect, updateCity);
+router.delete("/deletecity/:id",protect, deleteCitybyId);
 
 module.exports = router;

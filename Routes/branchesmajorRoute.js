@@ -9,10 +9,12 @@ const {
   updateBranchMajor,
 } = require("../Controllers/branchesmajorController");
 
-router.get("/getallbranchesmajor", getAllBranchesMajor);
-router.get("/getbranchesmajorbyid/:id", getBranchesMajorbyId);
-router.post("/createbranchesmajor", createBranchesMajor);
-router.put("/updatebranchmajor/:id", updateBranchMajor);
-router.delete("/deletebranchmajor/:id", deleteBranchesMajorbyId);
+const protect = require("../Middleware/authMiddleware");
+
+router.get("/getallbranchesmajor",protect,getAllBranchesMajor);
+router.get("/getbranchesmajorbyid/:id",protect, getBranchesMajorbyId);
+router.post("/createbranchesmajor", protect,createBranchesMajor);
+router.put("/updatebranchmajor/:id",protect, updateBranchMajor);
+router.delete("/deletebranchmajor/:id",protect, deleteBranchesMajorbyId);
 
 module.exports = router;

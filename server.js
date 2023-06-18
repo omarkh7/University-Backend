@@ -12,6 +12,7 @@ const eventRoute = require('./Routes/eventRoute');
 const eventimagesRoute = require('./Routes/eventimagesRoute');
 const branchesRoute = require('./Routes/branchesRoute');
 const branchesmajorRoute = require('./Routes/branchesmajorRoute');
+const userRoute = require('./Routes/userRoute');
 
 
 
@@ -25,6 +26,7 @@ app.use(morgan('common'));
 app.use(express.static('public'));  
 app.use('/images', express.static('images'));
 
+app.use('/api/users', userRoute);
 app.use('/api/university', universityRoute);
 app.use('/api/cities', citiesRoute);
 app.use('/api/major', majorRoute);

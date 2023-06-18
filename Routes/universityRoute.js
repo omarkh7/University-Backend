@@ -17,10 +17,13 @@ const {
   updateUni,
 } = require("../Controllers/universityController");
 
-router.get("/getalluni", getAllUni);
-router.get("/getunibyid/:id", getUnibyId);
-router.post("/createuni", uploadfire.single("logo"), createUni);
-router.put("/updateuni/:id",uploadfire.single("logo"), updateUni);
-router.delete("/deleteuni/:id", deleteUnibyId);
+const protect = require("../Middleware/authMiddleware");
+
+
+router.get("/getalluni",protect, getAllUni);
+router.get("/getunibyid/:id",protect, getUnibyId);
+router.post("/createuni", uploadfire.single("logo"),protect, createUni);
+router.put("/updateuni/:id",uploadfire.single("logo"),protect, updateUni);
+router.delete("/deleteuni/:id",protect, deleteUnibyId);
 
 module.exports = router;

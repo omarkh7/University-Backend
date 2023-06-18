@@ -9,10 +9,12 @@ const {
   updateBranch,
 } = require("../Controllers/branchesController");
 
-router.get("/getallbranches/:cityid?", getAllBranches);
-router.get("/getbranchesbyid/:id", getBranchesbyId);
-router.post("/createbranches", createBranches);
-router.put("/updatebranch/:id", updateBranch);
-router.delete("/deletebranch/:id", deleteBranchesbyId);
+const protect = require("..//Middleware/authMiddleware");
+
+router.get("/getallbranches/:cityid?",protect, getAllBranches);
+router.get("/getbranchesbyid/:id",protect, getBranchesbyId);
+router.post("/createbranches",protect, createBranches);
+router.put("/updatebranch/:id",protect, updateBranch);
+router.delete("/deletebranch/:id",protect, deleteBranchesbyId);
 
 module.exports = router;
