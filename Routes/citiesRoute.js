@@ -13,8 +13,8 @@ const {
 const protect = require("../Middleware/authMiddleware");
 
 
-router.get("/getallcities",protect, getAllCities);
-router.get("/getcitybyid/:id", protect,getCitybyId);
+router.get("/getallcities", getAllCities);
+router.get("/getcitybyid/:id",getCitybyId);
 router.post("/createcity",protect, createCity);
 router.put("/updatecity/:id",protect, updateCity);
 router.delete("/deletecity/:id",protect, deleteCitybyId);

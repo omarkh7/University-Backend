@@ -11,8 +11,8 @@ const {
 const protect = require("../Middleware/authMiddleware");
 
 
-router.get("/getallmajors", protect,getAllMajors);
-router.get("/getmajorbyid/:id",protect, getMajorbyId);
+router.get("/getallmajors",getAllMajors);
+router.get("/getmajorbyid/:id", getMajorbyId);
 router.post("/createmajor",protect, createMajor);
 router.put("/updatemajor/:id",protect, updateMajor);
 router.delete("/deletemajor/:id",protect, deleteMajorbyId);

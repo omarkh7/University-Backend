@@ -15,13 +15,14 @@ const getAllBranchesMajor = async (req, res) => {
 
   // try {
   const branchesmajorr = await BranchesMajor.find(query)
- 
-   
+
     .populate("major_id")
     .populate({
       path: "branch_id",
-      populate:[ { path: "city_id", model: "Cities" },
-      { path: "university_id", model: "University" }]
+      populate: [
+        { path: "city_id", model: "Cities" },
+        { path: "university_id", model: "University" },
+      ],
     });
 
   const mappedresult = [];
@@ -51,9 +52,10 @@ const getAllBranchesMajor = async (req, res) => {
     } else {
       mappedresult[index].branches.push(item.branch_id.city_id.name); //item.major_id.name
       mappedresult[index].majors.push(item.major_id.name); //
-      if(!mappedresult[index].phoneNumber.includes(item.branch_id.phoneNumber)){
-        mappedresult[index].phoneNumber.push(item.branch_id.phoneNumber); 
-
+      if (
+        !mappedresult[index].phoneNumber.includes(item.branch_id.phoneNumber)
+      ) {
+        mappedresult[index].phoneNumber.push(item.branch_id.phoneNumber);
       }
     }
   });
@@ -62,10 +64,15 @@ const getAllBranchesMajor = async (req, res) => {
   return mappedresult;
 };
 // ========================GET BY ID========================
-const getBranchesMajorbyId = async (req, res) => {
-  const id = req.params.id;
+const getBMall = async (req, res) => {
   try {
-    const branchesmajor = await BranchesMajor.findById(id);
+    const branchesmajor = await BranchesMajor.find().populate({
+      path: "branch_id",
+      populate: [
+        { path: "city_id", model: "Cities" },
+        { path: "university_id", model: "University" },
+      ],
+    }).populate("major_id");
 
     res.send(branchesmajor);
   } catch (error) {
@@ -78,14 +85,14 @@ const getBranchesMajorbyId = async (req, res) => {
 
 const createBranchesMajor = async (req, res) => {
   try {
-    const { branches_id, major_id } = req.body;
+    const { branch_id, major_id } = req.body;
 
-    const universityBranch = await Branches.findById(branches_id);
+    const universityBranch = await Branches.findById(branch_id);
     const branchesmajor = await BranchesMajor.create({
       major_id,
       university_id: universityBranch.university_id,
       city_id: universityBranch.city_id,
-      branch_id: branches_id,
+      branch_id: branch_id,
     });
 
     res.status(201).json(branchesmajor);
@@ -151,7 +158,7 @@ const deleteBranchesMajorbyId = async (req, res) => {
 
 module.exports = {
   getAllBranchesMajor,
-  getBranchesMajorbyId,
+  getBMall,
   createBranchesMajor,
   deleteBranchesMajorbyId,
   updateBranchMajor,

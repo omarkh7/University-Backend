@@ -11,8 +11,8 @@ const {
 
 const protect = require("../Middleware/authMiddleware");
 
-router.get("/getallevents",protect, getAllEvents);
-router.get("/geteventbyid/:id",protect, getEventbyId);
+router.get("/getallevents", getAllEvents);
+router.get("/geteventbyid/:id", getEventbyId);
 router.post("/createevent",protect, createEvent);
 router.put("/updateevent/:id",protect, updateEvent);
 router.delete("/deleteevent/:id",protect, deleteEventbyId);

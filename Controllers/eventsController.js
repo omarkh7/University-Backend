@@ -5,21 +5,22 @@ const University = require("../Model/universityModel");
 // ========================GET ALL========================
 const getAllEvents = async (req, res) => {
   try {
+    // const events = await Events.find().populate("event_owner");
     const events = await Events.find().populate("event_owner");
 
-    const mappedresult = [];
-    const transformedArray = events.map((item) => {
-      const images = EventImages.find({ event_id: item._id });
+    // const mappedresult = [];
+    // const transformedArray = events.map((item) => {
+    //   const images = EventImages.find({ event_id: item._id });
 
-      const mappedItem = {
-        name: item.name,
-        description: item.description,
-        images: images,
-      };
-      mappedresult.push(mappedItem);
-    });
+    //   const mappedItem = {
+    //     name: item.name,
+    //     description: item.description,
+    //     images: images,
+    //   };
+    //   mappedresult.push(mappedItem);
+    // });
 
-    res.send(mappedresult);
+    res.send(events);
   } catch (error) {
     console.log(error);
     res.send(error);

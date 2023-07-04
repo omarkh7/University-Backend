@@ -12,7 +12,7 @@ const storage = getStorage();
 // ========================GET ALL========================
 const getAllEventImages = async (req, res) => {
   try {
-    const eventimages = await EventImages.find();
+    const eventimages = await EventImages.find().populate("event_id");
 
     res.send(eventimages);
   } catch (error) {

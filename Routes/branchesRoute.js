@@ -11,8 +11,8 @@ const {
 
 const protect = require("..//Middleware/authMiddleware");
 
-router.get("/getallbranches/:cityid?",protect, getAllBranches);
-router.get("/getbranchesbyid/:id",protect, getBranchesbyId);
+router.get("/getallbranches/:cityid?", getAllBranches);
+router.get("/getbranchesbyid/:id", getBranchesbyId);
 router.post("/createbranches",protect, createBranches);
 router.put("/updatebranch/:id",protect, updateBranch);
 router.delete("/deletebranch/:id",protect, deleteBranchesbyId);

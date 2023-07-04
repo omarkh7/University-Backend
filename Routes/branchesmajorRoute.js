@@ -3,7 +3,7 @@ const router = express.Router();
 
 const {
     getAllBranchesMajor,
-  getBranchesMajorbyId,
+    getBMall,
   createBranchesMajor,
   deleteBranchesMajorbyId,
   updateBranchMajor,
@@ -11,8 +11,8 @@ const {
 
 const protect = require("../Middleware/authMiddleware");
 
-router.get("/getallbranchesmajor",protect,getAllBranchesMajor);
-router.get("/getbranchesmajorbyid/:id",protect, getBranchesMajorbyId);
+router.get("/getallbranchesmajor",getAllBranchesMajor);
+router.get("/getbmall", getBMall);
 router.post("/createbranchesmajor", protect,createBranchesMajor);
 router.put("/updatebranchmajor/:id",protect, updateBranchMajor);
 router.delete("/deletebranchmajor/:id",protect, deleteBranchesMajorbyId);

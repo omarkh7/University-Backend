@@ -19,8 +19,8 @@ const {
 const protect = require("../Middleware/authMiddleware");
 
 
-router.get("/getalleventimages",protect, getAllEventImages);
-router.get("/geteventimagesbyid/:id",protect, getEventImagesbyId);
+router.get("/getalleventimages", getAllEventImages);
+router.get("/geteventimagesbyid/:id", getEventImagesbyId);
 router.post("/createeventimages", uploadfire.single("url"),protect, createEventImages);
 router.put("/updateeventimages/:id",uploadfire.single("url"),protect, updateEventImages);
 router.delete("/deleteeventimages/:id", protect,deleteEventImagesbyId);
