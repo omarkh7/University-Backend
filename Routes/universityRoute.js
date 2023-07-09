@@ -15,12 +15,14 @@ const {
   createUni,
   deleteUnibyId,
   updateUni,
+  getAllFilters,
 } = require("../Controllers/universityController");
 
 const protect = require("../Middleware/authMiddleware");
 
 
 router.get("/getalluni", getAllUni);
+router.get("/getAllFilters", getAllFilters);
 router.get("/getunibyid/:id", getUnibyId);
 router.post("/createuni", uploadfire.single("logo"),protect, createUni);
 router.put("/updateuni/:id",uploadfire.single("logo"),protect, updateUni);

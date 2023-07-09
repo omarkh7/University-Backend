@@ -1,4 +1,6 @@
 const University = require("../Model/universityModel");
+const Major = require("../Model/majorModel");
+const Cities = require("../Model/citiesModel");
 const uploadsingle = require("../Middleware/uploadsingleMiddleware");
 
 const {
@@ -154,10 +156,29 @@ const deleteUnibyId = async (req, res) => {
   }
 };
 
+
+const getAllFilters = async (req, res) => {
+  try {
+    const majors = await Major.find();
+    const cities = await Cities.find();
+
+    const filters = {
+      locations: cities,
+      majors: majors
+    };
+
+    res.send(filters);
+  } catch (error) {
+    console.log(error);
+    res.send(error);
+  }
+};
+
 module.exports = {
   getAllUni,
   getUnibyId,
   createUni,
   deleteUnibyId,
   updateUni,
+  getAllFilters,
 };
