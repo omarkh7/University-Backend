@@ -5,22 +5,42 @@ const University = require("../Model/universityModel");
 // ========================GET ALL========================
 const getAllEvents = async (req, res) => {
   try {
-    // const events = await Events.find().populate("event_owner");
-    const events = await Events.find().populate("event_owner");
+    Events.aggregate([
+      {
+        $lookup: {
+          from: 'event_images',
+          localField: '_id',
+          foreignField: 'event_id',
+          as: 'images',
+        },
+      },{
+        $lookup: {
+          from: 'universities',
+          localField: 'event_owner',
+          foreignField: '_id',
+          as: 'owner',
+        },
+      },
+    ])
+        .then((events) => {
+          const mappedEvents = events.map((event) => {
+            const university = event.owner[0];
+            return {
+              name: event.name,
+              description: event.description,
+              owner_name: university.name,
+              owner_image: university.logo,
+              images: event.images,
+            };
+          });
+          res.send(mappedEvents);
+          console.log(mappedEvents);
+        })
+        .catch((error) => {
+          res.send([]);
+          console.error(error);
+        });
 
-    // const mappedresult = [];
-    // const transformedArray = events.map((item) => {
-    //   const images = EventImages.find({ event_id: item._id });
-
-    //   const mappedItem = {
-    //     name: item.name,
-    //     description: item.description,
-    //     images: images,
-    //   };
-    //   mappedresult.push(mappedItem);
-    // });
-
-    res.send(events);
   } catch (error) {
     console.log(error);
     res.send(error);
