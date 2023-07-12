@@ -160,11 +160,23 @@ const deleteUnibyId = async (req, res) => {
 const getAllFilters = async (req, res) => {
   try {
     const majors = await Major.find();
+    const mappedMajors = majors.map((major) => {
+      return {
+        name: major.name,
+        id: major._id,
+      };
+    });
     const cities = await Cities.find();
+    const mappedCities = cities.map((city) => {
+      return {
+        name: city.name,
+        id: city._id,
+      };
+    });
 
     const filters = {
-      locations: cities,
-      majors: majors
+      locations: mappedCities,
+      majors: mappedMajors
     };
 
     res.send(filters);
