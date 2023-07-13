@@ -37,11 +37,11 @@ const getAllBranchesMajor = async (req, res) => {
         name: item.branch_id.university_id.name,
         description: item.branch_id.university_id.description,
         logo: item.branch_id.university_id.logo,
-        majors: [item.major_id.name],
-        branches: [item.branch_id.city_id.name],
+        majors: item.major_id.name,
+        branches: item.branch_id.city_id.name,
         advantages_features: item.branch_id.university_id.advantages_features,
         classification: item.branch_id.university_id.classification,
-        phoneNumber: [item.branch_id.phoneNumber],
+        phoneNumber: item.branch_id.phoneNumber,
         website: item.branch_id.university_id.website,
         facebook: item.branch_id.university_id.facebook,
         linkedin: item.branch_id.university_id.linkedin,
@@ -50,13 +50,13 @@ const getAllBranchesMajor = async (req, res) => {
 
       mappedresult.push(mappedItem);
     } else {
-      mappedresult[index].branches.push(item.branch_id.city_id.name); //item.major_id.name
-      mappedresult[index].majors.push(item.major_id.name); //
-      if (
-        !mappedresult[index].phoneNumber.includes(item.branch_id.phoneNumber)
-      ) {
-        mappedresult[index].phoneNumber.push(item.branch_id.phoneNumber);
-      }
+      mappedresult[index].branches += ', '+item.branch_id.city_id.name; //item.major_id.name
+      mappedresult[index].majors += ', '+item.major_id.name; //
+      // if (
+      //   mappedresult[index].phoneNumber.indexOf(item.branch_id.phoneNumber) !== -1
+      // ) {
+        mappedresult[index].phoneNumber+= ', '+item.branch_id.phoneNumber;
+      // }
     }
   });
   console.log("TESTINGG", mappedresult);
